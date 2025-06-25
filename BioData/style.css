@@ -1,3 +1,4 @@
+
 * {
     margin: 0;
     padding: 0;
@@ -61,6 +62,14 @@ input:focus, select:focus {
     font-size: 12px;
     margin-top: 5px;
     display: none;
+}
+
+.input-error {
+    border-color: #e74c3c !important;
+}
+
+.input-valid {
+    border-color: #2ecc71 !important;
 }
 
 .submit-btn {
