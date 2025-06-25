@@ -3,11 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./style.css">
-    <title>Professional Biodata Form</title>
-    <style>
-  
-    </style>
+    <title>Biodata Form</title>
+    <link rel="stylesheet" href="style.css">
+   
 </head>
 <body>
     <div class="container">
@@ -15,31 +13,31 @@
         <form id="biodataForm" onsubmit="return validateForm(event)">
             <div class="form-group">
                 <label for="firstName">First Name</label>
-                <input type="text" id="firstName" name="firstName" placeholder="Enter first name">
+                <input type="text" id="firstName" name="firstName" placeholder="Enter first name" oninput="validateInput(this)">
                 <div class="error" id="firstNameError">First name is required (only letters)</div>
             </div>
 
             <div class="form-group">
                 <label for="lastName">Last Name</label>
-                <input type="text" id="lastName" name="lastName" placeholder="Enter last name">
+                <input type="text" id="lastName" name="lastName" placeholder="Enter last name" oninput="validateInput(this)">
                 <div class="error" id="lastNameError">Last name is required (only letters)</div>
             </div>
 
             <div class="form-group">
                 <label for="height">Height (in cm)</label>
-                <input type="number" id="height" name="height" placeholder="Enter height in cm">
+                <input type="number" id="height" name="height" placeholder="Enter height in cm" oninput="validateInput(this)">
                 <div class="error" id="heightError">Height must be between 100 and 250 cm</div>
             </div>
 
             <div class="form-group">
                 <label for="nationality">Nationality</label>
-                <input type="text" id="nationality" name="nationality" placeholder="Enter nationality">
+                <input type="text" id="nationality" name="nationality" placeholder="Enter nationality" oninput="validateInput(this)">
                 <div class="error" id="nationalityError">Nationality is required</div>
             </div>
 
             <div class="form-group">
                 <label for="gender">Gender</label>
-                <select id="gender" name="gender">
+                <select id="gender" name="gender" onchange="validateInput(this)">
                     <option value="">Select gender</option>
                     <option value="male">Male</option>
                     <option value="female">Female</option>
@@ -50,7 +48,7 @@
 
             <div class="form-group">
                 <label for="bloodGroup">Blood Group</label>
-                <select id="bloodGroup" name="bloodGroup">
+                <select id="bloodGroup" name="bloodGroup" onchange="validateInput(this)">
                     <option value="">Select blood group</option>
                     <option value="A+">A+</option>
                     <option value="A-">A-</option>
@@ -66,7 +64,7 @@
 
             <div class="form-group">
                 <label for="maritalStatus">Marital Status</label>
-                <select id="maritalStatus" name="maritalStatus">
+                <select id="maritalStatus" name="maritalStatus" onchange="validateInput(this)">
                     <option value="">Select marital status</option>
                     <option value="single">Single</option>
                     <option value="married">Married</option>
@@ -78,43 +76,43 @@
 
             <div class="form-group">
                 <label for="ssc">SSC Result (GPA)</label>
-                <input type="number" id="ssc" name="ssc" step="0.01" placeholder="Enter SSC GPA">
+                <input type="number" id="ssc" name="ssc" step="0.01" placeholder="Enter SSC GPA" oninput="validateInput(this)">
                 <div class="error" id="sscError">GPA must be between 0 and 5</div>
             </div>
 
             <div class="form-group">
                 <label for="hsc">HSC Result (GPA)</label>
-                <input type="number" id="hsc" name="hsc" step="0.01" placeholder="Enter HSC GPA">
+                <input type="number" id="hsc" name="hsc" step="0.01" placeholder="Enter HSC GPA" oninput="validateInput(this)">
                 <div class="error" id="hscError">GPA must be between 0 and 5</div>
             </div>
 
             <div class="form-group">
                 <label for="bsc">BSc Degree</label>
-                <input type="text" id="bsc" name="bsc" placeholder="Enter BSc degree (if any)">
+                <input type="text" id="bsc" name="bsc" placeholder="Enter BSc degree (if any)" oninput="validateInput(this)">
                 <div class="error" id="bscError">Please enter valid degree name</div>
             </div>
 
             <div class="form-group">
                 <label for="occupation">Current Occupation</label>
-                <input type="text" id="occupation" name="occupation" placeholder="Enter current occupation">
+                <input type="text" id="occupation" name="occupation" placeholder="Enter current occupation" oninput="validateInput(this)">
                 <div class="error" id="occupationError">Occupation is required</div>
             </div>
 
             <div class="form-group">
                 <label for="fatherName">Father's Name</label>
-                <input type="text" id="fatherName" name="fatherName" placeholder="Enter father's name">
+                <input type="text" id="fatherName" name="fatherName" placeholder="Enter father's name" oninput="validateInput(this)">
                 <div class="error" id="fatherNameError">Father's name is required (only letters)</div>
             </div>
 
             <div class="form-group">
                 <label for="motherName">Mother's Name</label>
-                <input type="text" id="motherName" name="motherName" placeholder="Enter mother's name">
+                <input type="text" id="motherName" name="motherName" placeholder="Enter mother's name" oninput="validateInput(this)">
                 <div class="error" id="motherNameError">Mother's name is required (only letters)</div>
             </div>
 
             <div class="form-group">
                 <label for="hobbies">Hobbies</label>
-                <input type="text" id="hobbies" name="hobbies" placeholder="Enter hobbies (comma separated)">
+                <input type="text" id="hobbies" name="hobbies" placeholder="Enter hobbies (comma separated)" oninput="validateInput(this)">
                 <div class="error" id="hobbiesError">Please enter at least one hobby</div>
             </div>
 
@@ -123,107 +121,79 @@
     </div>
 
     <script>
-        function validateForm(event) {
-            event.preventDefault();
-            let isValid = true;
-
-            document.querySelectorAll('.error').forEach(error => error.style.display = 'none');
+        function validateInput(input) {
+            const value = input.value.trim();
+            const errorElement = document.getElementById(`${input.id}Error`);
+            
+         
+            input.classList.remove('input-error', 'input-valid');
 
             const nameRegex = /^[A-Za-z\s]+$/;
-            const firstName = document.getElementById('firstName').value.trim();
-            if (!firstName || !nameRegex.test(firstName)) {
-                document.getElementById('firstNameError').style.display = 'block';
-                isValid = false;
-            }
+            let isValid = true;
 
-            const lastName = document.getElementById('lastName').value.trim();
-            if (!lastName || !nameRegex.test(lastName)) {
-                document.getElementById('lastNameError').style.display = 'block';
-                isValid = false;
-            }
-
-            const height = parseInt(document.getElementById('height').value);
-            if (isNaN(height) || height < 100 || height > 250) {
-                document.getElementById('heightError').style.display = 'block';
-                isValid = false;
-            }
-
-            const nationality = document.getElementById('nationality').value.trim();
-            if (!nationality || !nameRegex.test(nationality)) {
-                document.getElementById('nationalityError').style.display = 'block';
-                isValid = false;
-            }
-
-            const gender = document.getElementById('gender').value;
-            if (!gender) {
-                document.getElementById('genderError').style.display = 'block';
-                isValid = false;
+            switch(input.id) {
+                case 'firstName':
+                case 'lastName':
+                case 'fatherName':
+                case 'motherName':
+                    isValid = value !== '' && nameRegex.test(value);
+                    break;
+                case 'height':
+                    isValid = value !== '' && !isNaN(value) && value >= 100 && value <= 250;
+                    break;
+                case 'nationality':
+                case 'occupation':
+                    isValid = value !== '';
+                    break;
+                case 'gender':
+                case 'bloodGroup':
+                case 'maritalStatus':
+                    isValid = value !== '';
+                    break;
+                case 'ssc':
+                case 'hsc':
+                    isValid = value !== '' && !isNaN(value) && value >= 0 && value <= 5;
+                    break;
+                case 'bsc':
+                    isValid = true; 
+                    break;
+                case 'hobbies':
+                    isValid = value !== '';
+                    break;
             }
 
       
-            const bloodGroup = document.getElementById('bloodGroup').value;
-            if (!bloodGroup) {
-                document.getElementById('bloodGroupError').style.display = 'block';
-                isValid = false;
-            }
-
-            const maritalStatus = document.getElementById('maritalStatus').value;
-            if (!maritalStatus) {
-                document.getElementById('maritalStatusError').style.display = 'block';
-                isValid = false;
-            }
-
-          
-            const ssc = parseFloat(document.getElementById('ssc').value);
-            if (isNaN(ssc) || ssc < 0 || ssc > 5) {
-                document.getElementById('sscError').style.display = 'block';
-                isValid = false;
-            }
-
-            const hsc = parseFloat(document.getElementById('hsc').value);
-            if (isNaN(hsc) || hsc < 0 || hsc > 5) {
-                document.getElementById('hscError').style.display = 'block';
-                isValid = false;
-            }
-
-            const bsc = document.getElementById('bsc').value.trim();
-            if (bsc && !/^[A-Za-z\s.]+$/.test(bsc)) {
-                document.getElementById('bscError').style.display = 'block';
-                isValid = false;
-            }
-
- 
-            const occupation = document.getElementById('occupation').value.trim();
-            if (!occupation) {
-                document.getElementById('occupationError').style.display = 'block';
-                isValid = false;
-            }
-
-         
-            const fatherName = document.getElementById('fatherName').value.trim();
-            if (!fatherName || !nameRegex.test(fatherName)) {
-                document.getElementById('fatherNameError').style.display = 'block';
-                isValid = false;
-            }
-
-            const motherName = document.getElementById('motherName').value.trim();
-            if (!motherName || !nameRegex.test(motherName)) {
-                document.getElementById('motherNameError').style.display = 'block';
-                isValid = false;
-            }
-
-            const hobbies = document.getElementById('hobbies').value.trim();
-            if (!hobbies) {
-                document.getElementById('hobbiesError').style.display = 'block';
-                isValid = false;
-            }
-
             if (isValid) {
+                input.classList.add('input-valid');
+                errorElement.style.display = 'none';
+            } else {
+                input.classList.add('input-error');
+                errorElement.style.display = 'block';
+            }
+        }
+
+        function validateForm(event) {
+            event.preventDefault();
+            const inputs = document.querySelectorAll('#biodataForm input, #biodataForm select');
+            let isFormValid = true;
+
+            inputs.forEach(input => {
+                validateInput(input);
+                if (input.classList.contains('input-error')) {
+                    isFormValid = false;
+                }
+            });
+
+            if (isFormValid) {
                 alert('Form submitted successfully!');
                 document.getElementById('biodataForm').reset();
+                inputs.forEach(input => {
+                    input.classList.remove('input-valid', 'input-error');
+                    document.getElementById(`${input.id}Error`).style.display = 'none';
+                });
             }
 
-            return isValid;
+            return isFormValid;
         }
     </script>
 </body>
